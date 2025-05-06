@@ -10,10 +10,8 @@ public interface ExchangeRateMapper {
 
     ExchangeRateMapper INSTANCE = Mappers.getMapper(ExchangeRateMapper.class);
 
-    //    @Mapping(source = "currency", target = "currencyCode")
     ExchangeRateDTO exchangeRateToExchangeRateDTO(ExchangeRate exchangeRate);
 
-    //    @Mapping(source = "currencyCode", target = "currency")
     ExchangeRate exchangeRateDTOToExchangeRate(ExchangeRateDTO exchangeRateDTO);
 
 }

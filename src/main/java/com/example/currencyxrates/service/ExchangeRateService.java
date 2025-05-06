@@ -36,21 +36,18 @@ public class ExchangeRateService {
     @Value("${spring.redis.name}")
     private String redisCacheName;
 
-//    private RedisTemplate<String, ExchangeRateDTO> redisTemplate;
+    private final RabbitTemplate rabbitTemplate;
 
-    private RabbitTemplate rabbitTemplate;
+    private final RabbitMQProperties rabbitMQProperties;
 
-    private RabbitMQProperties rabbitMQProperties;
+    private final ExchangeRateRepository exchangeRateRepository;
 
-    private ExchangeRateRepository exchangeRateRepository;
-
-    private CacheManager cacheManager;
+    private final CacheManager cacheManager;
 
     public ExchangeRateService(RestTemplate restTemplate,
                                RabbitTemplate rabbitTemplate, RabbitMQProperties rabbitMQProperties,
                                ExchangeRateRepository exchangeRateRepository, CacheManager cacheManager) {
         this.restTemplate = restTemplate;
-//        this.redisTemplate = redisTemplate;
         this.rabbitTemplate = rabbitTemplate;
         this.rabbitMQProperties = rabbitMQProperties;
         this.exchangeRateRepository = exchangeRateRepository;
@@ -100,10 +97,6 @@ public class ExchangeRateService {
         }
         return cache.get(cacheKey, ExchangeRateDTO.class);
     }
-
-//    void addToCache(String cacheKey, ExchangeRateDTO persistedExchangeRateDTO) {
-//        redisTemplate.opsForValue().set(cacheKey, persistedExchangeRateDTO, Duration.ofMinutes(30));
-//    }
 
     Map<String, ExchangeRateDTO> fetchBaseCurrencyExchangeRatesFromAPI(String base) {
         String url = String.format(EXCHANGE_API_URL, exchangeApiKey, base, "");
