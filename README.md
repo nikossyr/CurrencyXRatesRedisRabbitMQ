@@ -70,6 +70,12 @@ and generate a strong 512bit base64 key for HS512 encryption for JWT using the f
 openssl rand -base64 64
 ```
 
+Package the app to a jar using maven:
+
+```bash
+mvn package
+```
+
 Run all required services:
 
 ```bash
