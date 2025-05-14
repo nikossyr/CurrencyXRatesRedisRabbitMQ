@@ -2,9 +2,11 @@ package com.example.currencyxrates.controller;
 
 import com.example.currencyxrates.dto.ExchangeRateDTO;
 import com.example.currencyxrates.service.ExchangeRateService;
+import com.example.currencyxrates.service.JwtTokenService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -15,6 +17,7 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@WithMockUser(username = "testuser", roles = {"USER"})
 @WebMvcTest(ExchangeRateController.class)
 public class TestExchangeRateController {
 
@@ -23,6 +26,9 @@ public class TestExchangeRateController {
 
     @MockitoBean
     ExchangeRateService service;
+
+    @MockitoBean
+    private JwtTokenService jwtTokenService;
 
     @Test
     void shouldReturnExchangeRate() throws Exception {

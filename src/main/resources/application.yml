@@ -40,6 +40,12 @@ spring:
       key: ${EXCHANGE_API_KEY}
 server:
   port: 8080
+
+# JWT
+jwt:
+  secret: ${JWT_SECRET}
+  expirationMs: 86400000  # 1 day
+
 # Actuator
 management:
   endpoints:
@@ -59,3 +65,6 @@ springdoc:
     path: /api-docs
   swagger-ui:
     path: /ui.html
+    oauth2-redirect-url: http://localhost:8080/swagger-ui/oauth2-redirect.html
+    display-request-duration: true
+    show-extensions: true
